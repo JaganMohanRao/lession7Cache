@@ -1,0 +1,21 @@
+name: Run and test Cache
+
+on:
+  push:
+
+jobs:
+  run-and-test-cache:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@4.1.1
+      - uses: actions/cache@v3
+        id: generateCache
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      - run: pip install -r requirements.txt
+      - name: confirm cache
+        if: steps.generateCache.outputs.cache-hit == 'true'
+        run: echo cache entry found!
