@@ -7,7 +7,7 @@ jobs:
   run-and-test-cache:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@1.1
+      - uses: actions/checkout@v4
       - uses: actions/cache@v3
         id: generateCache
         with:
